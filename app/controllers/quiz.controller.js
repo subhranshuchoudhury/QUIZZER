@@ -193,6 +193,14 @@ exports.getQuiz = async (req, res) => {
 
 exports.getQuizAnalyze = async (req, res) => {
   try {
+
+    const redisReply = await GET_ASYNC(`QUIZ_${req.body.quizId}_${req.userId}_SCORE`);
+
+    if(redisReply){
+      console.log("CACHED DATA");
+      return res.status(200).json({ score: JSON.parse(redisReply) });
+    }
+
     // * get only question and only correct option
     const quiz = await Quiz.findById(req.body.quizId).select(
       "questions._id questions.options._id questions.options.is_correct attendedStudents start_time end_time published"
@@ -264,7 +272,7 @@ exports.getQuizAnalyze = async (req, res) => {
         "EX",
         3600
       );
-      console.log("CACHED DATA: ",saveScore);
+      console.log("CACHING DATA..");
       return res.status(200).json({ score });
     } else {
       return res.json({ message: "You are not attempted this quiz" });
