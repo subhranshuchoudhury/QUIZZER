@@ -38,11 +38,6 @@ const sendMail = async (to, subject, otp) => {
 // * PRE PROD TESTING
 
 exports.teacherRegister = async (req, res) => {
-  const OTP = otpGenerator.generate(6, {
-    upperCaseAlphabets: false,
-    specialChars: false,
-  });
-
   const teacher = new Teacher({
     name: req.body.name,
     email: req.body.email,
@@ -51,7 +46,6 @@ exports.teacherRegister = async (req, res) => {
     primaryPhone: req.body.primaryPhone,
     regdNo: req.body.regdNo,
     verified: false,
-    
   });
 
   try {
@@ -189,6 +183,7 @@ exports.sendOTPTeacher = async (req, res) => {
       if (diffMinutes < 5) {
         res.status(400).send({
           message: "Mail already sent. Please try again after 5 minutes",
+          duration: diffMinutes,
         });
         return;
       }
