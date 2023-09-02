@@ -26,16 +26,18 @@ module.exports = function (app) {
   );
 
   app.post(
+    "/api/teacher/auth/send-otp",
+    [teacherSignup.validateSendOTPInput],
+    controller.sendOTPTeacher
+  );
+
+  app.post(
     "/api/teacher/auth/verify",
     [teacherSignup.validateVerifyInput],
     controller.verifyTeacher
   );
 
-  app.post(
-    "/api/teacher/auth/send-otp",
-    [teacherSignup.validateSendOTPInput],
-    controller.sendOTPTeacher
-  );
+  
 
   app.post(
     "/api/teacher/auth/forgot-password",

@@ -51,10 +51,7 @@ exports.teacherRegister = async (req, res) => {
     primaryPhone: req.body.primaryPhone,
     regdNo: req.body.regdNo,
     verified: false,
-    tempOTP: {
-      otp: OTP,
-      createdAt: new Date(),
-    },
+    
   });
 
   try {

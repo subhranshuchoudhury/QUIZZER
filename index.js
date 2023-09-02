@@ -1,9 +1,9 @@
 const express = require("express");
 const compression = require("compression");
-// const cluster = require("cluster");
-// const os = require("os");
 const app = express();
 require("dotenv").config();
+// const cluster = require("cluster");
+// const os = require("os");
 
 // * Cors
 
